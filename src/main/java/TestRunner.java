@@ -22,7 +22,7 @@ public class TestRunner {
         registerPage.performSearchFor("Apple");
         registerPage.clearSearchField();
         registerPage.performSearchFor("Samsung");
-        Thread.sleep(2000);
+
         webDriverManager.getDriver4Web().close();
         webDriverManager.getDriver4Web().quit();
 
