@@ -12,7 +12,7 @@ public class TestJunitRunner {
     @BeforeEach
     public void configureTestPreconditions() {
 
-        webDriverManager.getDriver4Web().get("https://demo.opencart.com/");
+        webDriverManager.getDriver4Web().get("https://demo-opencart.com/");
 
     }
 
@@ -27,8 +27,7 @@ public class TestJunitRunner {
     @DisplayName("The registration page can be accessed from navigation bar")
 
     public void registerPageIsOpened() {
-//        WebDriverManager webDriverManager = new WebDriverManager("Chrome");
-//        webDriverManager.getDriver4Web().get("https://demo.opencart.com/");
+
 
         HomePage homePage = new HomePage(webDriverManager.getDriver4Web());
         homePage.navigateToRegisterPageViaHeader();
@@ -37,15 +36,14 @@ public class TestJunitRunner {
         boolean containsCorrectUrlEndpoint = webDriverManager.getDriver4Web().getCurrentUrl().contains("index.php?route=account/register");
         Assertions.assertTrue(containsCorrectUrlEndpoint, "The actual URL does not contain the correct endpoint");
 
-//        webDriverManager.getDriver4Web().close();
+
     }
 
     @Test
     @DisplayName("Correct error message is displayed when trying to create a user without checking the privacy policy")
 
     public void anErrorMessageIsDisplayedWhenCreatingAnAccountWithoutAcceptingThePrivacyPolicy() {
-//        WebDriverManager webDriverManager = new WebDriverManager("Chrome");
-//        webDriverManager.getDriver4Web().get("https://demo.opencart.com/");
+
 
         HomePage homePage = new HomePage(webDriverManager.getDriver4Web());
         homePage.navigateToRegisterPageViaHeader();
@@ -59,8 +57,6 @@ public class TestJunitRunner {
         String actualErrorText = errorMessageForLackOfPrivacy.getText();
 
         Assertions.assertEquals(expectedErrorText, actualErrorText, "The error message is not correct, please check the actual result");
-//        webDriverManager.getDriver4Web().close();
-
 
     }
 }

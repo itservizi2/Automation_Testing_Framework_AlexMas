@@ -8,7 +8,7 @@ public class TestRunner {
     public static void main(String[] args) throws InterruptedException {
 
         WebDriverManager webDriverManager = new WebDriverManager("Chrome");
-        webDriverManager.getDriver4Web().get("https://demo.opencart.com/");
+        webDriverManager.getDriver4Web().get("https://demo-opencart.com/");
 
         HomePage homePage = new HomePage(webDriverManager.getDriver4Web());
         homePage.navigateToRegisterPageViaHeader();
