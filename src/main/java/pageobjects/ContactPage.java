@@ -6,7 +6,5 @@ public class ContactPage extends Page {
     public ContactPage(WebDriver driver){
 
         super(driver);
-
     }
-
 }
