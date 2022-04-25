@@ -30,6 +30,13 @@ public class RegisterPage extends Page {
     @FindBy(xpath = "//*[@id=\"content\"]/form/div/div/input[2]")
     private WebElement continueBtn;
 
+    @FindBy(xpath = "//*[@id=\"content\"]/form/div/div/input[1]")
+    private WebElement privacyCheckBox;
+
+    @FindBy(xpath = "//div[@class=\"text-danger\"]")
+    private WebElement errorMessage;
+
+
     public void populateRegisterFormWithData(String firstName, String lastName, String email, String phone, String password, String confirmPassword) {
         firstNameInputField.sendKeys(firstName);
         lastNameInputField.sendKeys(lastName);
@@ -42,5 +49,14 @@ public class RegisterPage extends Page {
 
     public void clickContinueBtn() {
         continueBtn.click();
+    }
+
+    public void clickCheckBox() {
+        privacyCheckBox.click();
+
+    }
+    public String getTheErrorMessageText(){
+        return errorMessage.getText();
+
     }
 }
