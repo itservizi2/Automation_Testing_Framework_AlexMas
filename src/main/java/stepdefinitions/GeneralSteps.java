@@ -1,9 +1,9 @@
 package stepdefinitions;
 
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.junit.jupiter.api.Assertions;
+import pageobjects.Page;
 import utils.TestContext;
 
 public class GeneralSteps {
@@ -13,13 +13,22 @@ public class GeneralSteps {
         this.context = testContext;
     }
 
-    @Given("^\"([^\"]*)\" is accessed$")
-    public void isAccessed(String adresaUrl) throws Throwable {
-        context.getWebDriverManager().getDriver4Web().get(adresaUrl);
-    }
     @Then("^\"([^\"]*)\" is present within the current url$")
-    public void isPresentWithinTheCurrentUrl(String keyWord) throws Throwable {
-        boolean containsCorrectUrlEndpoint = context.getWebDriverManager().getDriver4Web().getCurrentUrl().contains(keyWord);
-        Assertions.assertTrue(containsCorrectUrlEndpoint, "The actual URL does not contain the correct endpoint");
+    public void isPresentWithinTheCurrentUrl(String pageName) {
+        boolean containsCorrectUrlEndpoint = context.getWebDriverManager().getDriver4Web().getCurrentUrl().contains(pageName);
+        Page.pageContainsCorrectEndpoint(pageName, context.getWebDriverManager().getDriver4Web());
+
+    }
+    @Given("^\"([^\"]*)\" is accessed$")
+    public void isAccessed(String pageName) {
+        Page.navigateToPage(pageName, context.getWebDriverManager().getDriver4Web());
+    }
+    @Then("^Correct \"([^\"]*)\" endpoint is displayed$")
+    public void correctEndpointIsDisplayed(String pageName) {
+        String expectedUrlEndpoint =  Page.pageContainsCorrectEndpoint(pageName, context.getWebDriverManager().getDriver4Web());
+        String valoareaActualaEndpoint = context.getWebDriverManager().getDriver4Web().getCurrentUrl();
+        Assertions.assertTrue(valoareaActualaEndpoint.contains(expectedUrlEndpoint), " The ENDPOINT defined in the " +
+                " pageObject of " +pageName+ " page is not present in the current URL: " + valoareaActualaEndpoint);
+
     }
 }

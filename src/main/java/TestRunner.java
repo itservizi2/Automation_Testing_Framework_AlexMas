@@ -1,6 +1,4 @@
 import managers.WebDriverManager;
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebElement;
 import pageobjects.HomePage;
 import pageobjects.RegisterPage;
 
