@@ -36,6 +36,12 @@ public class RegisterPage extends Page {
     @FindBy(xpath = "//div[@class=\"text-danger\"]")
     private WebElement errorMessage;
 
+    private final String ENDPOINT = "/index.php?route=account/register";
+
+    public RegisterPage goToPage() {
+        driver.get(BASE_URL + ENDPOINT);
+        return this;
+    }
 
     public void populateRegisterFormWithData(String firstName, String lastName, String email, String phone, String password, String confirmPassword) {
         firstNameInputField.sendKeys(firstName);
@@ -44,7 +50,6 @@ public class RegisterPage extends Page {
         phoneInputField.sendKeys(phone);
         passwordInputField.sendKeys(password);
         confirmPasswordInputField.sendKeys(confirmPassword);
-
     }
 
     public void clickContinueBtn() {
@@ -53,10 +58,12 @@ public class RegisterPage extends Page {
 
     public void clickCheckBox() {
         privacyCheckBox.click();
-
     }
-    public String getTheErrorMessageText(){
-        return errorMessage.getText();
 
+    public String getTheErrorMessageText() {
+        return errorMessage.getText();
+    }
+    public String getENDPOINT(){
+        return ENDPOINT;
     }
 }

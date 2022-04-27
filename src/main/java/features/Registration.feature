@@ -1,13 +1,14 @@
 @LectieAvansata
 Feature: Registration flow feature
 Background:
-  Given "https://demo-opencart.com" is accessed
+
+  Given "HomePage" is accessed
   @ExecutaAcestTC
   Scenario: The registration page can be accessed from navigation bar
 
     When user clicks on registration button from navigation bar
-    Then "index.php?route=account/register" is present within the current url
 
+    Then Correct "RegisterPage" endpoint is displayed
   Scenario: Opencart page is accessible
 
     Then "https://demo-opencart.com" is present within the current url
@@ -15,7 +16,7 @@ Background:
   @LectieAvansata
   Scenario Outline:  error message is displayed when providing wrong  data for <affectedField>
 
-    And user clicks on registration button from navigation bar
+    Given "RegisterPage" is accessed
     When the register fields are populated with the following data:
       | firstName       | <first name>  |
       | lastName        | <last name>   |

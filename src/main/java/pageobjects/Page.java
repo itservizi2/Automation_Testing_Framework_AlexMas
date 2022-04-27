@@ -1,12 +1,18 @@
 package pageobjects;
 
+import managers.PropertiesManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import java.lang.reflect.Method;
 
 public class Page {
+    protected WebDriver driver;
+
     public Page(WebDriver driver) {
+        this.driver = driver;
+
         PageFactory.initElements(driver, this);
     }
 
@@ -22,6 +28,8 @@ public class Page {
     @FindBy(xpath = "//*[@id=\"search\"]/span/button ")
     private WebElement searchBtn;
 
+    protected final String BASE_URL = PropertiesManager.getBaseUrl();
+
     public void navigateToRegisterPageViaHeader() {
         myAccountIcon.click();
         registerBtn.click();
@@ -32,8 +40,31 @@ public class Page {
         searchInputField.sendKeys(valoareCautata);
         searchBtn.click();
     }
-public void clearSearchField(){
+
+    public void clearSearchField() {
         searchInputField.clear();
-}
+    }
+
+    public static void navigateToPage(String pageName, WebDriver webDriver) {
+        Method defineMethod;
+        try {
+            defineMethod = Class.forName("pageobjects." + pageName).getMethod("goToPage");
+            defineMethod.invoke(Class.forName("pageobjects." + pageName).getConstructor(WebDriver.class).newInstance(webDriver));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static String pageContainsCorrectEndpoint(String pageName, WebDriver webDriver){
+        Method defineMethod;
+        try {
+        defineMethod = Class.forName("pageobjects." + pageName).getMethod("getENDPOINT");
+
+            return (String) defineMethod.invoke(Class.forName("pageobjects." + pageName).getConstructor(WebDriver.class).newInstance(webDriver));
+
+        } catch (Throwable e) {
+           e.printStackTrace();
+        }
+        throw new RuntimeException("Problems occurred during Endpoint extraction");
+    }
 
 }
