@@ -1,21 +1,20 @@
 @LectieAvansata
 Feature: Registration flow feature
-Background:
 
-  Given "HomePage" is accessed
+  Background:
+    Given "HomePage" is accessed
+
   @ExecutaAcestTC
   Scenario: The registration page can be accessed from navigation bar
-
     When user clicks on registration button from navigation bar
-
     Then Correct "RegisterPage" endpoint is displayed
-  Scenario: Opencart page is accessible
 
+  @Run
+  Scenario: Opencart page is accessible
     Then "https://demo-opencart.com" is present within the current url
 
   @LectieAvansata
   Scenario Outline:  error message is displayed when providing wrong  data for <affectedField>
-
     Given "RegisterPage" is accessed
     When the register fields are populated with the following data:
       | firstName       | <first name>  |
@@ -24,12 +23,10 @@ Background:
       | phoneNumber     | <phoneNumber> |
       | password        | Parola123!    |
       | confirmPassword | Parola123!    |
-
     And privacyCheckBox is clicked
     And Continue button is clicked
     Then the following keywords are present within the error message
       | <errorMessage> |
-
     Examples:
       | affectedField | first name                          | last name | email         | phoneNumber  | errorMessage                                    |
       | Email         | John                                | Peterson  |               | 464644646452 | appear to be valid!                             |

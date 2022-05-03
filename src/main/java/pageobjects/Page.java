@@ -1,10 +1,12 @@
 package pageobjects;
 
 import managers.PropertiesManager;
+import managers.WebDriverWaiterManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.lang.reflect.Method;
 
 public class Page {
@@ -31,7 +33,10 @@ public class Page {
     protected final String BASE_URL = PropertiesManager.getBaseUrl();
 
     public void navigateToRegisterPageViaHeader() {
+        WebDriverWaiterManager.waitElementToBeVisible(myAccountIcon, driver);
         myAccountIcon.click();
+        WebDriverWaiterManager.waitElementToBeVisible(registerBtn, driver);
+        WebDriverWaiterManager.waitElementToBeClickable(registerBtn, driver);
         registerBtn.click();
 
     }
@@ -54,15 +59,16 @@ public class Page {
             e.printStackTrace();
         }
     }
-    public static String pageContainsCorrectEndpoint(String pageName, WebDriver webDriver){
+
+    public static String pageContainsCorrectEndpoint(String pageName, WebDriver webDriver) {
         Method defineMethod;
         try {
-        defineMethod = Class.forName("pageobjects." + pageName).getMethod("getENDPOINT");
+            defineMethod = Class.forName("pageobjects." + pageName).getMethod("getENDPOINT");
 
             return (String) defineMethod.invoke(Class.forName("pageobjects." + pageName).getConstructor(WebDriver.class).newInstance(webDriver));
 
         } catch (Throwable e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         throw new RuntimeException("Problems occurred during Endpoint extraction");
     }

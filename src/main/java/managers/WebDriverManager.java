@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.time.Duration;
 import java.util.Locale;
 
 public class WebDriverManager {
@@ -24,6 +25,8 @@ public class WebDriverManager {
         } else {
             System.out.println("Such a browser has not been implemented");
         }
+        driver4Web.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver4Web.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
     }
 
     public WebDriver getDriver4Web() {
