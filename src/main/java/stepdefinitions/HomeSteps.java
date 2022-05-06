@@ -16,4 +16,9 @@ homePage = new HomePage(context.getWebDriverManager().getDriver4Web());
     public void userClicksOnRegistrationButtonFromNavigationBar() {
       homePage.navigateToRegisterPageViaHeader();
     }
+
+    @When("^Contact Us button from footer is clicked$")
+    public void contactUsButtonFromFooterIsClicked() {
+        homePage.clickOnContactUsBtn();
+    }
 }
