@@ -30,6 +30,9 @@ public class Page {
     @FindBy(xpath = "//*[@id=\"search\"]/span/button ")
     private WebElement searchBtn;
 
+    @FindBy(xpath = ".//a[text()='Contact Us']")
+    private WebElement contactUsBtn;
+
     protected final String BASE_URL = PropertiesManager.getBaseUrl();
 
     public void navigateToRegisterPageViaHeader() {
@@ -73,4 +76,8 @@ public class Page {
         throw new RuntimeException("Problems occurred during Endpoint extraction");
     }
 
+    public void clickOnContactUsBtn() {
+        WebDriverWaiterManager.waitElementToBeClickable(contactUsBtn, driver);
+        contactUsBtn.click();
+    }
 }
